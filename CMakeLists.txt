@@ -48,11 +48,14 @@ set(PROJECT_FULL_NAME "Intel(R) Integrated Performance Primitives (Intel(R) IPP)
 set(PROJECT_NAME "Intel(R) IPP Crypto")
 set(PROJECT_VERSION, "2019.0.0")
 
+project(${PROJECT_NAME} C CXX)
+
 set(LIB_NAME ippcp)
 
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
-
 cmake_policy(SET CMP0054 NEW)
+
+set(IPP_CRYPTO_DISABLE_SHARED YES CACHE BOOL
+    "Disable building dynamic IPP Crypro library.")
 
 if("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
   if(NOT(C_COMPILER  STREQUAL ""))
@@ -63,10 +66,8 @@ if("${CMAKE_GENERATOR}" STREQUAL "NMake Makefiles")
   endif()
 endif()
 
-project(${PROJECT_NAME} C CXX)
-
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    message(STATUS "CMAKE_BUILD_TYPE is unset, defaulting to Release")
+    message(STATUS "CMAKE_BUILD_TYPE is not set, defaulting to Release")
     set(CMAKE_BUILD_TYPE "Release")
 endif()
 
@@ -78,9 +79,11 @@ if(WIN32 AND (${CMAKE_GENERATOR} MATCHES "Visual Studio"))
   else()
     set(ARCH ia32)
   endif()
-endif(WIN32 AND (${CMAKE_GENERATOR} MATCHES "Visual Studio"))
+elseif ((NOT ARCH) AND UNIX AND (NOT ANDROID) AND (CMAKE_SIZEOF_VOID_P EQUAL 8))
+    set(ARCH intel64)
+endif()
 
-if ((NOT NONPIC_LIB) AND (NOT ANDROID) AND (NOT CODE_COVERAGE))
+if ((NOT IPP_CRYPTO_DISABLE_SHARED) AND (NOT BUILD_STATIC_BINARIES) AND (NOT NONPIC_LIB) AND (NOT ANDROID) AND (NOT CODE_COVERAGE))
   set(DYNAMIC_LIB ON)
 else()
   set(DYNAMIC_LIB OFF)
