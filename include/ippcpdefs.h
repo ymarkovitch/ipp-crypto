@@ -79,9 +79,6 @@ extern "C" {
     #if( _MSC_VER >= 1400 )
       #define IPP_DEPRECATED( comment ) __declspec( deprecated ( comment ))
     #else
-      #pragma message ("your icl version supports additional comment for deprecated functions but it can't be displayed")
-      #pragma message ("because internal _MSC_VER macro variable setting requires compatibility with MSVC7.1")
-      #pragma message ("use -Qvc8 switch for icl command line to see these additional comments")
       #define IPP_DEPRECATED( comment ) __declspec( deprecated )
     #endif
   #elif( _MSC_FULL_VER >= 140050727 )&&( !defined( __INTEL_COMPILER )) /* VS2005 supports additional comment */
@@ -120,7 +117,6 @@ extern "C" {
 #else
   #define IPP_NO_DEFAULT_LIB
   #if (defined( _IPP_PARALLEL_DYNAMIC ) || defined( _IPP_PARALLEL_STATIC ) || defined(_IPP_SEQUENTIAL_DYNAMIC) || defined(_IPP_SEQUENTIAL_STATIC))
-    #pragma message ("defines _IPP_PARALLEL_DYNAMIC/_IPP_PARALLEL_STATIC/_IPP_SEQUENTIAL_DYNAMIC/_IPP_SEQUENTIAL_STATIC do not have any effect in current configuration")
   #endif
 #endif
 

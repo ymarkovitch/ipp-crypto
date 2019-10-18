@@ -68,9 +68,7 @@
 //
 *F*/
 #if defined(_USE_C_cpSqrAdc_BNU_school_)
-#pragma message ("C version of cpSqrAdc_BNU_school: ON")
 #else
-#pragma message ("C version of cpSqrAdc_BNU_school: OFF")
 #endif
 
 #if !((_IPP==_IPP_W7) || \

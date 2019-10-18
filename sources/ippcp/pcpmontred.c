@@ -49,9 +49,7 @@
 
 
 #if defined(_USE_C_cpMontRedAdc_BNU_)
-#pragma message ("C version of cpMontRedAdc_BNU: ON")
 #else
-#pragma message ("C version of cpMontRedAdc_BNU: OFF")
 #endif
 
 #if !((_IPP==_IPP_W7) || \

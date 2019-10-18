@@ -68,9 +68,7 @@
 //    val   carry
 *F*/
 #if defined(_USE_C_cpInc_BNU_)
-#pragma message ("C version of cpInc_BNU: ON")
 #else
-#pragma message ("C version of cpInc_BNU: OFF")
 #endif
 
 #if !((_IPP==_IPP_W7) || \

@@ -69,9 +69,7 @@
 *F*/
 
 #if defined(_USE_C_cpSubMulDgt_BNU_)
-#pragma message ("C version of cpSubMulDgt_BNU: ON")
 #else
-#pragma message ("C version of cpSubMulDgt_BNU: OFF")
 #endif
 
 #if !((_IPP==_IPP_W7) || \

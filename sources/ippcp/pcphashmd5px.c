@@ -56,10 +56,8 @@
 #include "pcptool.h"
 
 #if !defined(_ENABLE_ALG_MD5_)
-#pragma message("IPP_ALG_HASH_MD5 disabled")
 
 #else
-#pragma message("IPP_ALG_HASH_MD5 enabled")
 
 #if !((_IPP==_IPP_M5) || \
       (_IPP==_IPP_W7) || (_IPP==_IPP_T7) || \

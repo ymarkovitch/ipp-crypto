@@ -99,9 +99,7 @@ typedef struct _cpGFpECPoint {
 //#define ECP_PROJECTIVE_COORD  HOMOGENEOUS
 
 #if (ECP_PROJECTIVE_COORD== JACOBIAN)
-   #pragma message ("ECP_PROJECTIVE_COORD = JACOBIAN")
 #elif (ECP_PROJECTIVE_COORD== HOMOGENEOUS)
-   #pragma message ("ECP_PROJECTIVE_COORD = HOMOGENEOUS")
 #else
    #error ECP_PROJECTIVE_COORD should be either JACOBIAN or HOMOGENEOUS type
 #endif
