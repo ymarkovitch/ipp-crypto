@@ -2,8 +2,9 @@
 *\#
 .\#*
 TAGS
-build
-tmp
+build/
+scratch/
+tmp/
 .build*
 *.install
 *.deb
@@ -28,10 +29,6 @@ CTestTestfile.cmake
 
 core
 vgcore*
-
-
-# Netbeans project files
-nbproject/*
 
 # JetBrains project files
 .idea
