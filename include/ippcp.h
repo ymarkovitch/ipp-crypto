@@ -38,11 +38,11 @@
 * limitations under the License.
 *******************************************************************************/
 
-/* 
+/*
 //              Intel(R) Integrated Performance Primitives (Intel(R) IPP)
 //              Cryptographic Primitives (ippCP)
-// 
-// 
+//
+//
 */
 
 #if !defined( IPPCP_H__ ) || defined( _OWN_BLDPCS )
@@ -498,43 +498,15 @@ IPPAPI(IppStatus, ippsSHA512Final,(Ipp8u* pMD, IppsSHA512State* pState))
 IPPAPI(IppStatus, ippsSHA512MessageDigest,(const Ipp8u* pMsg, int len, Ipp8u* pMD))
 
 /* MD5 Hash Primitives */
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5GetSize,(int* pSize))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Init,(IppsMD5State* pState))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Duplicate,(const IppsMD5State* pSrcState, IppsMD5State* pDstState))
 
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Pack,(const IppsMD5State* pState, Ipp8u* pBuffer))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Unpack,(const Ipp8u* pBuffer, IppsMD5State* pState))
-
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Update,(const Ipp8u* pSrc, int len, IppsMD5State* pState))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5GetTag,(Ipp8u* pTag, Ipp32u tagLen, const IppsMD5State* pState))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5Final,(Ipp8u* pMD, IppsMD5State* pState))
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI(IppStatus, ippsMD5MessageDigest,(const Ipp8u* pMsg, int len, Ipp8u* pMD))
 
 /* SM3 Hash Primitives */
@@ -564,9 +536,6 @@ IPPAPI(IppStatus, ippsHashFinal,(Ipp8u* pMD, IppsHashState* pState))
 IPPAPI(IppStatus, ippsHashMessage,(const Ipp8u* pMsg, int len, Ipp8u* pMD, IppHashAlgId hashAlg))
 
 /* method based generalized (reduced memory footprint) Hash Primitives */
-IPP_DEPRECATED("This algorithm is considered weak due to known attacks on it. \
-The functionality remains in the library, but the implementation will no be longer \
-optimized and no security patches will be applied. A more secure alternative is available: SHA-2") \
 IPPAPI( const IppsHashMethod*, ippsHashMethod_MD5, (void) )
 IPPAPI( const IppsHashMethod*, ippsHashMethod_SM3, (void) )
 
@@ -809,7 +778,7 @@ IPPAPI(IppStatus, ippsRSA_ValidateKeys,(int* pResult,
 
 /* encryption scheme: RSAES-OAEP */
 IPPAPI(IppStatus, ippsRSAEncrypt_OAEP,(const Ipp8u* pSrc, int srcLen,
-                                       const Ipp8u* pLabel, int labLen, 
+                                       const Ipp8u* pLabel, int labLen,
                                        const Ipp8u* pSeed,
                                              Ipp8u* pDst,
                                        const IppsRSAPublicKeyState* pKey,
@@ -824,7 +793,7 @@ IPPAPI(IppStatus, ippsRSADecrypt_OAEP,(const Ipp8u* pSrc,
                                              Ipp8u* pBuffer))
 
 IPPAPI(IppStatus, ippsRSAEncrypt_OAEP_rmf,(const Ipp8u* pSrc, int srcLen,
-                                       const Ipp8u* pLabel, int labLen, 
+                                       const Ipp8u* pLabel, int labLen,
                                        const Ipp8u* pSeed,
                                              Ipp8u* pDst,
                                        const IppsRSAPublicKeyState* pKey,
