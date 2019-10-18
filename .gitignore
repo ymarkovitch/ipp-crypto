@@ -1,0 +1,52 @@
+*~
+*\#
+.\#*
+TAGS
+build
+tmp
+.build*
+*.install
+*.deb
+*.upload
+*.changes
+__pycache__
+
+# ignore build files
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+CTestTestfile.cmake
+*.a
+*.o
+
+.gdb
+.gdb_history
+*.gdbbrk
+*.brk
+*.gdbb
+
+core
+vgcore*
+
+
+# Netbeans project files
+nbproject/*
+
+# JetBrains project files
+.idea
+
+config-preprocessed.xml
+
+# Protobuf
+*.pb.cpp
+*.pb.h
+
+# Bison output
+*.tab.*
+*.hh
+*.output
+
+.cproject
+.project
+.settings
