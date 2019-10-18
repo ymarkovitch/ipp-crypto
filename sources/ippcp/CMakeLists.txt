@@ -46,8 +46,8 @@ include (GenerateExportHeader)
 
 set(TARGET_NAME ${LIB_NAME})
 
-if(EXISTS "${CMAKE_SOURCE_DIR}/tools/" AND NOT (${CMAKE_C_COMPILER_ID} STREQUAL "GNU") AND NOT(${CMAKE_C_COMPILER_ID} STREQUAL "AppleClang"))
-  include("${CMAKE_SOURCE_DIR}/tools/toolsSpecific.cmake")
+if(EXISTS "${PROJECT_SOURCE_DIR}/tools/" AND NOT (${CMAKE_C_COMPILER_ID} STREQUAL "GNU") AND NOT(${CMAKE_C_COMPILER_ID} STREQUAL "AppleClang"))
+  include("${PROJECT_SOURCE_DIR}/tools/toolsSpecific.cmake")
 endif()
 
 #Set platform list
@@ -157,7 +157,7 @@ else()
 endif()
 
 # common build options and ${OS_DEFAULT_COMPILER}
-include("${CMAKE_SOURCE_DIR}/sources/cmake/${OS_STRING}/common.cmake")
+include("${PROJECT_SOURCE_DIR}/sources/cmake/${OS_STRING}/common.cmake")
 
 if(("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC") AND (CMAKE_C_COMPILER_VERSION VERSION_LESS DEFAULT_MSVC_COMPILER_VER))
   message(FATAL_ERROR "Microsoft Visual C++ Compiler version must be 19.14 or higher (MSVC 19.14 or higher)")
@@ -167,7 +167,7 @@ if(("${CMAKE_C_COMPILER_ID}" STREQUAL "GNU") AND (CMAKE_C_COMPILER_VERSION VERSI
   message(FATAL_ERROR "GNU C Compiler version must be 5.1 or higher")
 endif()
 
-set(COMPILER_OPTIONS_FILE "${CMAKE_SOURCE_DIR}/sources/cmake/${OS_STRING}")
+set(COMPILER_OPTIONS_FILE "${PROJECT_SOURCE_DIR}/sources/cmake/${OS_STRING}")
 if (EXISTS "${COMPILER_OPTIONS_FILE}/${CMAKE_C_COMPILER_ID}${CMAKE_C_COMPILER_VERSION_SHORT}.cmake")
   set(COMPILER_OPTIONS_FILE "${COMPILER_OPTIONS_FILE}/${CMAKE_C_COMPILER_ID}${CMAKE_C_COMPILER_VERSION_SHORT}.cmake")
 else()
@@ -233,7 +233,7 @@ if(${CMAKE_C_COMPILER_ID} STREQUAL "Intel")
         $ENV{ROOT}/compiler/include
         $ENV{ROOT}/compiler/include/icc
         $ENV{INCLUDE}
-        ${CMAKE_BINARY_DIR}/include/autogen
+        ${PROJECT_BINARY_DIR}/include/autogen
       )
   else()
     include_directories(
@@ -243,7 +243,7 @@ if(${CMAKE_C_COMPILER_ID} STREQUAL "Intel")
         $ENV{ANDROID_GNU_X86_TOOLCHAIN}/include
         $ENV{ANDROID_SYSROOT}/usr/include
         $ENV{ANDROID_NDK_ROOT}/sources/cxx-stl/stlport/stlport
-        ${CMAKE_BINARY_DIR}/include/autogen
+        ${PROJECT_BINARY_DIR}/include/autogen
       )
   endif()
 elseif(MSVC_IDE)
@@ -253,7 +253,7 @@ elseif(MSVC_IDE)
       ${IPP_CRYPTO_INCLUDE_DIR}/
       $ENV{INCLUDE}
       ${CMAKE_SYSTEM_INCLUDE_PATH}
-      ${CMAKE_BINARY_DIR}/include/autogen
+      ${PROJECT_BINARY_DIR}/include/autogen
     )
 else()
   include_directories(
@@ -261,7 +261,7 @@ else()
     ${IPP_CRYPTO_SOURCES_INCLUDE_DIR}
     ${IPP_CRYPTO_INCLUDE_DIR}
     ${CMAKE_SYSTEM_INCLUDE_PATH}
-    ${CMAKE_BINARY_DIR}/include/autogen
+    ${PROJECT_BINARY_DIR}/include/autogen
     )
 endif()
 
@@ -360,8 +360,8 @@ if(NOT MERGED_BLD)
   set(IPPCP_LIB_DYNAMIC "")
 endif(NOT MERGED_BLD)
 
-set(ONE_CPU_FOLDER ${CMAKE_BINARY_DIR}/include/autogen)
-set(ONE_CPU_GENERATOR  ${CMAKE_SOURCE_DIR}/sources/gen_cpu_spc_header/gen_cpu_spc_header.py)
+set(ONE_CPU_FOLDER ${PROJECT_BINARY_DIR}/include/autogen)
+set(ONE_CPU_GENERATOR  ${PROJECT_SOURCE_DIR}/sources/gen_cpu_spc_header/gen_cpu_spc_header.py)
 execute_process(COMMAND ${PYTHON_EXECUTABLE} ${ONE_CPU_GENERATOR} ${IPP_CRYPTO_INCLUDE_DIR}/ippcp.h ${ONE_CPU_FOLDER})
 set(HEADERS ${HEADERS} ${ONE_CPU_FOLDER}/ippcp_cpuspc.h)
 
@@ -458,7 +458,7 @@ foreach(opt ${PLATFORM_LIST})
   else()
     add_library(${IPPCP_ST_ITER} STATIC ${HEADERS} ${SOURCES} ${ASM_SOURCES})
   endif()
-  
+
   if(WIN32)
     set_target_properties(${IPPCP_ST_ITER} PROPERTIES STATIC_LIBRARY_FLAGS ${LINK_FLAG_STATIC_WINDOWS})
   endif()
@@ -466,13 +466,13 @@ foreach(opt ${PLATFORM_LIST})
   list(APPEND IPPCP_LIB_STATIC ${IPPCP_ST_ITER})
 
   # # Set optimization flags
-  
+
   set(OPT_FLAGS_${opt} ${${opt}_opt})
 
   set_target_properties(${IPPCP_ST_ITER} PROPERTIES COMPILE_FLAGS "${OPT_FLAGS_${opt}}")
   # Set optimization flag for cpinit.c to -O1
   # Fix for problem related with MSVC compiler -O2 optimization
-  if((${ARCH} STREQUAL "intel64") AND ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC")) 
+  if((${ARCH} STREQUAL "intel64") AND ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC"))
     set_source_files_properties(cpinit.c PROPERTIES COMPILE_FLAGS " -O1")
   endif()
   if(DYNAMIC_LIB)
@@ -489,7 +489,7 @@ else() #static single cpu
 endif()
 
 if(MERGED_BLD)
-  set(DISPATCHER ${CMAKE_BINARY_DIR}/dispatcher)
+  set(DISPATCHER ${PROJECT_BINARY_DIR}/dispatcher)
   set(IPPCP_API ${IPP_CRYPTO_INCLUDE_DIR}/ippcp.h)
   file(MAKE_DIRECTORY ${DISPATCHER})
 
@@ -528,15 +528,15 @@ if(MERGED_BLD)
     )
 
   file(GLOB_RECURSE HEADERS
-    ${CMAKE_BINARY_DIR}/dispatcher/*.h
+    ${PROJECT_BINARY_DIR}/dispatcher/*.h
     )
 
   file(GLOB_RECURSE SOURCES
-    ${CMAKE_BINARY_DIR}/dispatcher/*.c
+    ${PROJECT_BINARY_DIR}/dispatcher/*.c
     )
 
   file(GLOB_RECURSE ASM_SOURCES
-    ${CMAKE_BINARY_DIR}/dispatcher/*.asm
+    ${PROJECT_BINARY_DIR}/dispatcher/*.asm
     )
 
   set(SOURCES ${SOURCES} ${ASM_SOURCES} ${merged_dependency})
@@ -567,11 +567,11 @@ if(MERGED_BLD)
     if(WIN32)
       if((${ARCH} STREQUAL "intel64") AND ("${CMAKE_C_COMPILER_ID}" STREQUAL "MSVC"))
         # Generate dynamic dispatcher for MSVC intel64
-        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/dispatcher_dyn)
-        execute_process(COMMAND ${PYTHON_EXECUTABLE} ${IPP_CRYPTO_DISPATCHER_DIR}/gen_dyn_disp_win64.py ${IPPCP_API} ${CMAKE_BINARY_DIR}/dispatcher_dyn
+        file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/dispatcher_dyn)
+        execute_process(COMMAND ${PYTHON_EXECUTABLE} ${IPP_CRYPTO_DISPATCHER_DIR}/gen_dyn_disp_win64.py ${IPPCP_API} ${PROJECT_BINARY_DIR}/dispatcher_dyn
           RESULT_VARIABLE result
           )
-        set(ASM_SOURCES_PCS ${ASM_SOURCES_PCS} ${CMAKE_BINARY_DIR}/dispatcher_dyn/jmp_dynamic_lib.asm)
+        set(ASM_SOURCES_PCS ${ASM_SOURCES_PCS} ${PROJECT_BINARY_DIR}/dispatcher_dyn/jmp_dynamic_lib.asm)
       endif()
       add_library(${IPPCP_LIB_PCS} SHARED ippcp.def pcpmain.c cpinit.c ${ASM_SOURCES_PCS} pcpver.rc)
       set_target_properties(${IPPCP_LIB_PCS} PROPERTIES LINK_FLAGS ${LINK_FLAG_DYNAMIC_WINDOWS})
