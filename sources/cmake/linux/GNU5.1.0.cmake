@@ -60,7 +60,7 @@ set(CC_FLAGS_INLINE_ASM_UNIX_INTEL64 "-use_msasm -ffixed-rdi -ffixed-rsi -ffixed
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_CXX_FLAGS} ${LIBRARY_DEFINES}")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffreestanding -flto-report -std=c99 -falign-functions=32 -falign-loops=32 -Wformat -Wformat-security -fstack-protector")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffreestanding -flto-report -std=c99 -falign-functions=32 -falign-loops=32 -Wformat -Wformat-security -Wno-deprecated-declarations -fstack-protector")
 if(NOT NONPIC_LIB)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fpic -fPIC")
 endif()
